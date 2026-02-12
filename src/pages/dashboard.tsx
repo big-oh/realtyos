@@ -12,7 +12,6 @@ import {
   ArrowRight, 
   Plus,
   Building,
-  Phone,
   Mail,
   Target,
   Zap

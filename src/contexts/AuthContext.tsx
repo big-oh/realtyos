@@ -55,8 +55,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     
     initAuth()
 
-    if (!supabase) return // Prevent error if supabase is not initialized
-
     const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
       refreshUser()
     })

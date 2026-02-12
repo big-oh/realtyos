@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { signIn, signUp } from '@/lib/supabase'
+import { useAuth } from '@/contexts/AuthContext'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -20,6 +20,7 @@ export function LoginPage() {
   const [error, setError] = useState<string | null>(null)
   const navigate = useNavigate()
   const { toast } = useToast()
+  const { login, signup } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -28,13 +29,13 @@ export function LoginPage() {
 
     try {
       if (isSignUp) {
-        await signUp(email, password, firstName, lastName)
+        await signup(email, password, firstName, lastName)
         toast({
           title: 'Account created!',
           description: 'Please check your email to verify your account.',
         })
       } else {
-        await signIn(email, password)
+        await login(email, password)
         toast({
           title: 'Welcome back!',
           description: 'You have successfully signed in.',

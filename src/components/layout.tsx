@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/contexts/AuthContext'
-import { signOut } from '@/lib/supabase'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
@@ -33,14 +32,14 @@ const secondaryNavigation = [
 
 export function Layout({ children }: LayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const { user, isAuthenticated } = useAuth()
+  const { user, isAuthenticated, logout } = useAuth()
   const location = useLocation()
   const navigate = useNavigate()
   const { toast } = useToast()
 
   const handleSignOut = async () => {
     try {
-      await signOut()
+      await logout()
       toast({
         title: 'Signed out',
         description: 'You have been signed out successfully.',
